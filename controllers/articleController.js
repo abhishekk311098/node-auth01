@@ -12,18 +12,28 @@ const createArticle = async (req, res) => {
       content,
       userId: req.user.id,
     });
-    sendSuccessResponse(res, 201, "Article created successfully", article);
+    return sendSuccessResponse(
+      res,
+      201,
+      "Article created successfully",
+      article
+    );
   } catch (err) {
-    sendErrorResponse(res, 500, "Internal server error", err.message);
+    return sendErrorResponse(res, 500, "Internal server error", err.message);
   }
 };
 
 const getAllArticle = async (req, res) => {
   try {
     const articles = await Article.findAll();
-    sendSuccessResponse(res, 200, "Articles fetched successfully", articles);
+    return sendSuccessResponse(
+      res,
+      200,
+      "Articles fetched successfully",
+      articles
+    );
   } catch (err) {
-    sendErrorResponse(res, 500, "Internal server error", err.message);
+    return sendErrorResponse(res, 500, "Internal server error", err.message);
   }
 };
 
@@ -33,9 +43,14 @@ const getArticleById = async (req, res) => {
     if (!article) {
       return sendErrorResponse(res, 404, "Article not found");
     }
-    sendSuccessResponse(res, 200, "Article fetched successfully", article);
+    return sendSuccessResponse(
+      res,
+      200,
+      "Article fetched successfully",
+      article
+    );
   } catch (err) {
-    sendErrorResponse(res, 500, "Internal server error", err.message);
+    return sendErrorResponse(res, 500, "Internal server error", err.message);
   }
 };
 
@@ -49,9 +64,14 @@ const updateArticleById = async (req, res) => {
       return sendErrorResponse(res, 403, "Not authorized to edit this article");
     }
     await article.update(req.body);
-    sendSuccessResponse(res, 200, "Article updated successfully", article);
+    return sendSuccessResponse(
+      res,
+      200,
+      "Article updated successfully",
+      article
+    );
   } catch (err) {
-    sendErrorResponse(res, 500, "Internal server error", err.message);
+    return sendErrorResponse(res, 500, "Internal server error", err.message);
   }
 };
 
@@ -69,9 +89,9 @@ const deleteArticleById = async (req, res) => {
       );
     }
     await article.destroy();
-    sendSuccessResponse(res, 200, "Article deleted successfully");
+    return sendSuccessResponse(res, 200, "Article deleted successfully");
   } catch (err) {
-    sendErrorResponse(res, 500, "Internal server error", err.message);
+    return sendErrorResponse(res, 500, "Internal server error", err.message);
   }
 };
 

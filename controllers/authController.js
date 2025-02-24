@@ -17,9 +17,9 @@ const registerUser = async (req, res) => {
     }
     const hash = await bcrypt.hash(password, 10);
     const user = await User.create({ name, email, password: hash });
-    sendSuccessResponse(res, 201, "User registered successfully", user);
+    return sendSuccessResponse(res, 201, "User registered successfully", user);
   } catch (err) {
-    sendErrorResponse(res, 500, "Internal server error", err.message);
+    return sendErrorResponse(res, 500, "Internal server error", err.message);
   }
 };
 
